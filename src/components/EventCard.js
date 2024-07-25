@@ -12,7 +12,7 @@ const EventCard = ({ event }) => {
 
   return (
     <div 
-      className='max-w-xs mx-auto bg-white shadow-lg rounded-xl overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl m-4'
+      className='max-w-xs mx-auto bg-white shadow-lg rounded-xl overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl hover:cursor-pointer m-4'
       onClick={handleCardClick}
     >
       <img className='w-full h-48 object-cover' src={event?.image} alt="Event" />
