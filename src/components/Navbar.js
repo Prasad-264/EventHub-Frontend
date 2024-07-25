@@ -1,21 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className='bg-white shadow-md'>
+    <nav className='bg-gradient-to-r from-cyan-500 to-blue-500 shadow-md'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center h-16'>
           <div className='flex items-center'>
-            <h1 className='text-2xl font-bold text-gray-900'>Eventhub</h1>
+            <Link to="/" className='text-white text-3xl font-bold tracking-wide'>
+              Eventhub
+            </Link>
           </div>
-          <div className='flex space-x-10 text-md'>
-            <a href="#" className='text-gray-700 hover:text-gray-900'>Home</a>
-            <a href="#" className='text-gray-700 hover:text-gray-900'>Explore</a>
-            <a href="#" className='text-gray-700 hover:text-gray-900'>Profile</a>
+          <div className='flex space-x-6 text-md'>
+            <Link to="/" className='text-white hover:text-blue-100 transition-colors duration-300'>
+              Home
+            </Link>
+            <Link to="/explore" className='text-white hover:text-blue-100 transition-colors duration-300'>
+              Explore
+            </Link>
+            <Link to="/profile" className='text-white hover:text-blue-100 transition-colors duration-300'>
+              Profile
+            </Link>
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
