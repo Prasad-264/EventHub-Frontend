@@ -7,12 +7,12 @@ const Navbar = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center h-16'>
           <div className='flex items-center'>
-            <Link to="/" className='text-white text-3xl font-bold tracking-wide'>
+            <Link to="/home" className='text-white text-3xl font-bold tracking-wide'>
               Eventhub
             </Link>
           </div>
           <div className='flex space-x-6 text-md'>
-            <Link to="/" className='text-white hover:text-blue-100 transition-colors duration-300'>
+            <Link to="/home" className='text-white hover:text-blue-100 transition-colors duration-300'>
               Home
             </Link>
             <Link to="/explore" className='text-white hover:text-blue-100 transition-colors duration-300'>
