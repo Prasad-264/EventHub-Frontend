@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { token } from '../Helper';
+import { getData } from '../utils/storage';
 
 const EventPage = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const token = getData("token");
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -32,7 +33,7 @@ const EventPage = () => {
     };
 
     fetchEvent();
-  }, [id]);
+  }, [id, token]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

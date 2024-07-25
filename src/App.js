@@ -3,6 +3,8 @@ import Home from "./components/Home";
 import EventPage from "./components/EventPage";
 import Explore from "./components/Explore";
 import Profile from "./components/Profile";
+import Registration from "./components/Registration";
+import Login from "./components/Login";
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -11,6 +13,8 @@ function App() {
       <Navbar />
       <div className="container mx-auto mt-4">
         <Routes>
+          <Route path="/" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/event/:id" element={<EventPage />} />
           <Route path="/explore" element={<Explore />} />

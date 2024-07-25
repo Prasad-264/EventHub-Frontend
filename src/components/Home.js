@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from "./EventCard";
-import { token } from '../Helper';
+import { getData } from '../utils/storage';
 
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const userId = getData("userId");
+  const token = getData("token");
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('http://localhost:9000/api/user/6697e215668c648c74bd027d/events', {
+        const response = await fetch(`http://localhost:9000/api/user/${userId}/events`, {
           headers: {
             'Authorization': `${token}`,
             'Content-Type': 'application/json',
