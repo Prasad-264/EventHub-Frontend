@@ -5,6 +5,7 @@ import { getData } from '../utils/storage';
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const userId = getData("userId");
   const token = getData("token");
 
@@ -23,14 +24,15 @@ const Home = () => {
         setEvents(data);
         setLoading(false);
       } catch (error) {
-        console.log(error.message);
+        setError(error.message);
       }
     };
 
     fetchEvents();
-  }, []);
+  }, [userId, token]);
 
   if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="flex flex-wrap justify-center my-6 mx-5">
