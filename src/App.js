@@ -5,15 +5,17 @@ import Explore from "./components/Explore";
 import Profile from "./components/Profile";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
+import LandingPage from "./components/LandingPage";
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto mt-4">
+      <div className="mx-auto">
         <Routes>
-          <Route path="/" element={<Registration />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signup" element={<Registration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/event/:id" element={<EventPage />} />
