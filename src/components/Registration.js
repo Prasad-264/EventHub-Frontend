@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const Registration = () => {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -37,6 +39,7 @@ const Registration = () => {
       }
 
       setSuccess(true);
+      navigate("/login");
       setFormData({
         firstName: '',
         lastName: '',
