@@ -61,7 +61,7 @@ const Registration = () => {
         <form onSubmit={handleSubmit}>
           <div className='flex gap-2'>         
             <div className="mb-4">
-              <label className="block mb-2 text-gray-900">First Name</label>
+              <label className="block mb-2 text-gray-900 font-semibold">First Name</label>
               <input
                 type="text"
                 name="firstName"
@@ -72,7 +72,7 @@ const Registration = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block mb-2 text-gray-900">Last Name</label>
+              <label className="block mb-2 text-gray-900 font-semibold">Last Name</label>
               <input
                 type="text"
                 name="lastName"
@@ -84,7 +84,7 @@ const Registration = () => {
             </div>
           </div>
           <div className="mb-4">
-            <label className="block mb-2 text-gray-900">Email</label>
+            <label className="block mb-2 text-gray-900 font-semibold">Email</label>
             <input
               type="email"
               name="email"
@@ -95,7 +95,7 @@ const Registration = () => {
             />
           </div>
           <div className="mb-6">
-            <label className="block mb-2 text-gray-900">Password</label>
+            <label className="block mb-2 text-gray-900 font-semibold">Password</label>
             <input
               type="password"
               name="password"
