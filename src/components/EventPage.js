@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getData } from '../utils/storage';
+import Notification from './Notification';
 
 const EventPage = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [notification, setNotification] = useState('');
   const token = getData("token");
+  const userId = getData("userId");
   const date = new Date(event?.date);
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const formattedDate = date.toLocaleDateString(undefined, options);
@@ -38,20 +41,43 @@ const EventPage = () => {
     fetchEvent();
   }, [id, token]);
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     console.log('Register for the event');
+    try {
+      const response = await fetch(`http://localhost:9000/api/user/${userId}/register-for-event`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ eventId: event?._id }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to register for the event');
+      }
+  
+      const data = await response.json();
+      console.log("Successfully registered for the event", data);
+      setNotification('Event registered successfully!');
+    } catch (error) {
+      console.error("Error registering for the event:", error.message);
+    }
   };
 
   const handleAddFriend = (participantId) => {
     console.log(`Add friend with ID: ${participantId}`);
   };
 
-  if (loading) return <div>Loading...</div>;
+  const handleNotificationClose = () => setNotification('');
+  
+  if (loading) return ;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className='flex flex-wrap flex-row gap-4 justify-evenly p-4'>
-      <div className="max-w-2xl bg-white p-6 rounded-xl shadow-md">
+    <div className='flex flex-col lg:flex-row gap-4 justify-evenly p-4'>
+      {notification && <Notification message={notification} onClose={handleNotificationClose} />}
+      <div className="w-full lg:w-1/2 xl:w-6/12 bg-white p-6 rounded-xl shadow-md">
         <h1 className="text-3xl font-bold mb-4">{event?.title}</h1>
         <img className="w-full h-64 object-cover mb-4 rounded" src={event?.image} alt={event?.title} />
         <div className='flex justify-between mb-4'>
@@ -66,11 +92,11 @@ const EventPage = () => {
           Register
         </button>
       </div>
-      <div className="max-w-2xl bg-white p-6 rounded-xl shadow-md text-center">
+      <div className="w-full lg:w-1/2 xl:w-3/12 bg-white p-6 rounded-xl shadow-md text-center">
         <h1 className="text-3xl font-bold mb-4">Participants</h1>
         <div className="max-h-[29rem] overflow-y-auto no-scrollbar">
           {event.participants?.map((participant, index) => (
-            <div key={index} className='flex justify-between items-center gap-3 mb-4 p-4 bg-white shadow-md rounded-lg'>
+            <div key={index} className='flex justify-between items-center gap-3 mb-4 p-3 bg-white shadow-md rounded-lg'>
               <p className='text-lg font-medium text-gray-800'>{participant.firstName} {participant.lastName}</p>
               <button
                 onClick={() => handleAddFriend(participant._id)}
@@ -78,8 +104,8 @@ const EventPage = () => {
               >
                 Add Friend
               </button>
-            </div> 
-          ))} 
+            </div>
+          ))}
         </div>
       </div>
     </div>
