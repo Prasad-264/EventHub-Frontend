@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getData } from '../utils/storage';
 import Notification from './Notification';
+import Loader from '../utils/Loader';
 
 const EventPage = () => {
   const { id } = useParams();
@@ -77,7 +78,11 @@ const EventPage = () => {
     setShowNotification(false);
   };
 
-  if (loading) return ;
+  if (loading) return (
+    <div className='text-center mt-60'>
+      <Loader />
+    </div>
+  );
   if (error) return <div>Error: {error}</div>;
 
   return (
