@@ -8,7 +8,8 @@ const EventPage = () => {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [notification, setNotification] = useState('');
+  const [registered, setRegistered] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const token = getData("token");
   const userId = getData("userId");
   const date = new Date(event?.date);
@@ -33,13 +34,15 @@ const EventPage = () => {
         console.log(data);
         setEvent(data);
         setLoading(false);
+        const isRegistered = data.participants.some(participant => participant._id === userId);
+        setRegistered(isRegistered);
       } catch (error) {
         setError(error.message);
       }
     };
 
     fetchEvent();
-  }, [id, token]);
+  }, [id, token, userId]);
 
   const handleRegister = async () => {
     console.log('Register for the event');
@@ -59,7 +62,8 @@ const EventPage = () => {
   
       const data = await response.json();
       console.log("Successfully registered for the event", data);
-      setNotification('Event registered successfully!');
+      setRegistered(true);
+      setShowNotification(true);
     } catch (error) {
       console.error("Error registering for the event:", error.message);
     }
@@ -69,14 +73,15 @@ const EventPage = () => {
     console.log(`Add friend with ID: ${participantId}`);
   };
 
-  const handleNotificationClose = () => setNotification('');
-  
+  const closeNotification = () => {
+    setShowNotification(false);
+  };
+
   if (loading) return ;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className='flex flex-col lg:flex-row gap-4 justify-evenly p-4'>
-      {notification && <Notification message={notification} onClose={handleNotificationClose} />}
       <div className="w-full lg:w-1/2 xl:w-6/12 bg-white p-6 rounded-xl shadow-md">
         <h1 className="text-3xl font-bold mb-4">{event?.title}</h1>
         <img className="w-full h-64 object-cover mb-4 rounded" src={event?.image} alt={event?.title} />
@@ -86,10 +91,11 @@ const EventPage = () => {
         </div>
         <p className="text-gray-700 mb-4">{event?.description}</p>
         <button
-          onClick={handleRegister}
-          className="text-white py-2 px-4 w-full rounded bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transition duration-300"
+          onClick={registered ? null : handleRegister}
+          className={`text-white py-2 px-4 w-full rounded ${registered ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transition duration-300'}`}
+          disabled={registered}
         >
-          Register
+          {registered ? 'Registered' : 'Register'}
         </button>
       </div>
       <div className="w-full lg:w-1/2 xl:w-3/12 bg-white p-6 rounded-xl shadow-md text-center">
@@ -108,6 +114,12 @@ const EventPage = () => {
           ))}
         </div>
       </div>
+      {showNotification && (
+        <Notification
+          message="Event registered successfully!"
+          onClose={closeNotification}
+        />
+      )}
     </div>
   );
 }
