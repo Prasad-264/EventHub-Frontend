@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from "./EventCard";
 import { getData } from '../utils/storage';
+import Loader from '../utils/Loader';
 
 const Home = () => {
   const [events, setEvents] = useState([]);
@@ -31,7 +32,12 @@ const Home = () => {
     fetchEvents();
   }, [userId, token]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return (
+    <div className='text-center mt-60'>
+      <Loader />
+    </div>
+  );
+  
   if (error) return <div>Error: {error}</div>;
 
   return (
