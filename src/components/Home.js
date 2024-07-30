@@ -55,7 +55,7 @@ const Home = () => {
           placeholder="Search by location"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 border rounded w-full max-w-lg"
+          className="p-2 border border-gray-300 rounded-lg w-full max-w-md focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm transition duration-300 ease-in-out"
         />
       </div>
       <div className="flex flex-wrap justify-center">
