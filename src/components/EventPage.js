@@ -109,12 +109,16 @@ const EventPage = () => {
           {event.participants?.map((participant, index) => (
             <div key={index} className='flex justify-between items-center gap-3 mb-4 p-3 bg-white shadow-md rounded-lg'>
               <p className='text-lg font-medium text-gray-800'>{participant.firstName} {participant.lastName}</p>
-              <button
-                onClick={() => handleAddFriend(participant._id)}
-                className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300"
-              >
-                Add Friend
-              </button>
+              {participant._id === userId ? (
+                <button className="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-600 transition duration-300 cursor-not-allowed">You</button>
+              ) : (
+                <button
+                  onClick={() => handleAddFriend(participant._id)}
+                  className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300"
+                >
+                  Add Friend
+                </button>
+              )}
             </div>
           ))}
         </div>
