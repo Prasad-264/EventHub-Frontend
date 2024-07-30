@@ -7,6 +7,7 @@ const Home = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const userId = getData("userId");
   const token = getData("token");
 
@@ -32,6 +33,12 @@ const Home = () => {
     fetchEvents();
   }, [userId, token]);
 
+  const filteredEvents = events.filter(event =>
+    event.location.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  console.log(filteredEvents);
+
   if (loading) return (
     <div className='text-center mt-60'>
       <Loader />
@@ -41,10 +48,25 @@ const Home = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex flex-wrap justify-center my-6 mx-5">
-      {events && events.map((event, index) => (
-        <EventCard key={index} event={event} />
-      ))}
+    <div className="my-6 mx-5">
+      <div className="mb-4 text-center">
+        <input
+          type="text"
+          placeholder="Search by location"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="p-2 border rounded w-full max-w-lg"
+        />
+      </div>
+      <div className="flex flex-wrap justify-center">
+        {filteredEvents.length > 0 ? (
+          filteredEvents.map((event, index) => (
+            <EventCard key={index} event={event} />
+          ))
+        ) : (
+          <div>No events found</div>
+        )}
+      </div>
     </div>
   );
 }
