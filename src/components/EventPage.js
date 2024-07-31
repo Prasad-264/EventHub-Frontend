@@ -60,9 +60,8 @@ const EventPage = () => {
       if (!response.ok) {
         throw new Error('Failed to register for the event');
       }
-  
-      const data = await response.json();
-      console.log("Successfully registered for the event", data);
+      
+      console.log("Successfully registered for the event");
       setRegistered(true);
       setShowNotification(true);
     } catch (error) {
