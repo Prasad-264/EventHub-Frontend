@@ -38,6 +38,8 @@ const Login = () => {
       console.log(data);
       storeData('token', data?.token);
       storeData('userId', data?.userObject?._id);
+      storeData('firstName', data?.userObject?.firstName);
+      storeData('email', data?.userObject?.email);
       navigate('/home');
     } catch (err) {
       setError(err.message);
