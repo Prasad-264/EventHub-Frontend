@@ -63,12 +63,12 @@ const RegisteredEvents = ({userId, token }) => {
 
   return (
     <section className="my-8 mx-4">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Registered Events</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Your Registered Events</h2>
       <div className="flex flex-wrap justify-center">
         {events.map((event) => (
           <div key={event?._id} className="max-w-xs rounded-lg overflow-hidden shadow-lg m-4 bg-white hover:shadow-xl transition-shadow duration-300">
-            <img className="w-full h-48 object-cover" src={event?.image} alt={event?.title} />
-            <div className="px-4 py-4 flex flex-col gap-3">
+            <img className="w-full h-24 object-cover" src={event?.image} alt={event?.title} />
+            <div className="px-4 py-4 flex flex-col gap-2">
               <div className="font-bold text-xl text-gray-900">{event?.title}</div>
               <p className="text-gray-600 text-sm">
                 <strong>Date:</strong> {new Date(event?.date).toLocaleDateString()}
