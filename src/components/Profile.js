@@ -18,7 +18,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-// My Profile
-// Registered Events
-// Logout
