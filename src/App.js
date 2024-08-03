@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import LandingPage from "./components/LandingPage";
+import RegisteredEvents from "./components/RegisteredEvents";
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/event/:id" element={<EventPage />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/registered-events" element={<RegisteredEvents />} />
         </Routes>
       </div> 
     </>
