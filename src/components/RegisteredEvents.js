@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import Loader from "../utils/Loader";
 import Notification from "./Notification";
+import { getData } from "../utils/storage";
 
-const RegisteredEvents = ({userId, token }) => {
+const RegisteredEvents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
+  const userId = getData("userId");
+  const token = getData("token");
   
   useEffect(() => {
     const getRegisteredEvents = async () => {
